@@ -239,21 +239,18 @@ bungee_stop() {
     echo "ServerPID: $pid"
     echo "Arguments passed: $1"
   fi
-  if [ $(whoami) = "$SERVERUSER" ] || [ $(whoami) = "root" ] ; then
-    if [ -n "$pid" ] ; then
-      sendCommand "end" ;
-      echo -n "Stoping $SCREENNAME Server..." ;
-      # Wait for process to end
-      while [ "$(getServerPID)" = "$pid" ] ; do
-        echo -n "." ;
-        sleep 0.5 ;
-      done
-      echo "$SCREENNAME server stopped."
-    else
-      echo "The $SCREENNAME server is not running."
-    fi
+  if [ -n "$pid" ] ; then
+    sendCommand "end" ;
+    echo -n "Stoping $SCREENNAME Server..." ;
+    # Wait for process to end
+    while [ "$(getServerPID)" = "$pid" ] ; do
+      echo -n "." ;
+      sleep 0.5 ;
+    done
+    echo "$SCREENNAME server stopped."
   else
-    echo
+    echo "The $SCREENNAME server is not running."
+  fi
 }
 
 
